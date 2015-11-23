@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<organization>
+		<name>Binary Workspace</name>
+		<url>http://www.binaryworkspace.com</url>
+	</organization>
+
+	<groupId>com.binaryworkspace.rcp.mavenproduct</groupId>
+	<artifactId>com-binaryworkspace-rcp-mavenproduct-build</artifactId>
+	<name>Binary Workspace - 02515 Maven Product</name>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Project Specific Configuration Settings -->
+	<!-- ********************************************************************************************** -->
+	<properties>
+		<!-- Launch Configuration Properties NOTE: The 'settings.eclipseHome' must 
+			be defined in settings.xml. See: project.plugins.plugin.executions.execution.id 
+			= buildLaunchConfiguration -->
+		<pom.launcher>org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar</pom.launcher>
+		<pom.launcherPath>${settings.eclipseHome}/plugins/${pom.launcher}</pom.launcherPath>
+		<pom.antRunner>org.eclipse.ant.core.antRunner</pom.antRunner>
+		<pom.builder>${basedir}</pom.builder>
+		<pom.buildFile>${pom.builder}/productBuild.xml</pom.buildFile>
+	</properties>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Define Project Modules Here -->
+	<!-- ********************************************************************************************** -->
+	<modules />
+
+	<!-- ********************************************************************************************** -->
+	<!-- Dependencies -->
+	<!-- ********************************************************************************************** -->
+	<dependencies>
+
+	</dependencies>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Developer Contact Information -->
+	<!-- ********************************************************************************************** -->
+	<developers>
+		<developer>
+			<name>Chris Ludka</name>
+			<id>1</id>
+			<email>binaryworkspace@gmail.com</email>
+			<organization>Binary Workspace</organization>
+		</developer>
+	</developers>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Deployment -->
+	<!-- ********************************************************************************************** -->
+	<distributionManagement>
+
+	</distributionManagement>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Configure Build -->
+	<!-- ********************************************************************************************** -->
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>./</directory>
+								<includes>
+									<include>.dep-build.txt</include>
+								</includes>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Configure Project Specific Profiles -->
+	<!-- ********************************************************************************************** -->
+	<profiles>
+		<profile>
+			<id>buildLaunchConfiguration-profile</id>
+			<activation>
+				<property>
+					<name>buildLaunchConfiguration</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- Copy all Eclipse plugin and feature projects to the staging directory. -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>buildLaunchConfigurationId</id>
+								<phase>install</phase>
+								<configuration>
+									<target>
+										<!-- plugin.pattern.set Includes all project directories specified 
+											while excluding project 'bin' directories and any files beginning with a 
+											'.'. This pattern set and copy is specific to the parent folder of the build 
+											file. -->
+										<patternset id="plugin.pattern.set">
+											<include name="com.binaryworkspace.rcp.02515.mavenproduct*/**" />
+											<exclude name="**/.*/" />
+											<exclude name="**/bin/" />
+										</patternset>
+										<property name="pluginDirectory" value="${project.build.directory}/plugins" />
+										<mkdir dir="${pluginDirectory}" />
+										<copy todir="${pluginDirectory}" verbose="true">
+											<fileset dir="..">
+												<patternset refid="plugin.pattern.set" />
+											</fileset>
+										</copy>
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Execute the Eclipse launch configuration builder. -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2</version>
+						<executions>
+							<execution>
+								<id>buildLaunchConfiguration</id>
+								<phase>install</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>java</executable>
+									<arguments>
+										<argument>-jar</argument>
+										<argument>${pom.launcherPath}</argument>
+										<argument>-application</argument>
+										<argument>${pom.antRunner}</argument>
+										<argument>-buildfile</argument>
+										<argument>${pom.buildFile}</argument>
+										<argument>-Dbuilder=${pom.builder}</argument>
+										<argument>-verbose</argument>
+										<!-- The following properties are from settings.xml and are passed 
+											to the Eclipse PDE Ant build process as system properties. -->
+										<argument>-DeclipseHome=${settings.eclipseHome}</argument>
+										<argument>-DjavaRuntimeJar=${settings.javaRuntimeJar}</argument>
+										<argument>-DbaseOs=${settings.baseOs}</argument>
+										<argument>-DbaseWs=${settings.baseWs}</argument>
+										<argument>-DbaseArch=${settings.baseArch}</argument>
+										<argument>-DbuildConfigurations=${settings.buildConfigurations}</argument>
+									</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<!-- ********************************************************************************************** -->
+	<!-- Configure reporting -->
+	<!-- ********************************************************************************************** -->
+	<reporting />
+</project>

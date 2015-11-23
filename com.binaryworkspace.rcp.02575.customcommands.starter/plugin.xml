@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="com.binaryworkspace.rcp.customcommands.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="Perspective"
+            class="com.binaryworkspace.rcp.customcommands.perspectives.Perspective"
+            id="com.binaryworkspace.rcp.customcommands.perspectives.Perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="View"
+            class="com.binaryworkspace.rcp.customcommands.viewparts.View"
+            id="com.binaryworkspace.rcp.customcommands.viewparts.View">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               standalone="false"
+               minimized="false"
+               relative="org.eclipse.ui.editorss"
+               relationship="left"
+               id="com.binaryworkspace.rcp.customcommands.viewparts.View">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.binaryworkspace.rcp.customcommands.application"
+            name="Binary Workspace - 02575 Custom Commands">
+         <property
+               name="appName"
+               value="Binary Workspace - 02575 Custom Commands">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

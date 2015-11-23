@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: 02640 Margins
+Bundle-SymbolicName: com.binaryworkspace.rcp.margins;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: com.binaryworkspace.rcp.margins.Activator
+Bundle-Vendor: Binary Workspace
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy

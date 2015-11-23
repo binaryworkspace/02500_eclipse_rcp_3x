@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<activeProfiles>
+		<activeProfile>default</activeProfile>
+	</activeProfiles>
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			
+			<properties>
+				<!-- Properties related to Eclipse PDE builds -->
+				<settings.eclipseHome>C:\eclipse_4_3_2_rcp</settings.eclipseHome>
+				<settings.javaRuntimeJar>${java.home}/lib/rt.jar</settings.javaRuntimeJar>
+				<settings.baseOs>win32</settings.baseOs>
+				<settings.baseWs>win32</settings.baseWs>
+				<!-- <settings.baseArch>x86</settings.baseArch> -->
+				<settings.baseArch>x86_64</settings.baseArch>
+				<!-- <settings.buildConfigurations>win32,win32,x86</settings.buildConfigurations> -->
+				<settings.buildConfigurations>win32,win32,x86_64</settings.buildConfigurations>
+			</properties>
+			
+		</profile>
+	</profiles>
+
+	<servers>
+		<server>
+		<!-- Server Connections -->
+		</server>
+	</servers>
+
+</settings>
