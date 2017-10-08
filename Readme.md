@@ -1,4 +1,4 @@
-# This repo is part of a larger tutorial series at [Binary Worskpace](https://www.binaryworkspace.com/).
+# This repo is part of a larger tutorial series at [Binary Workspace](https://www.binaryworkspace.com/).
 ## Eclipse RCP Project: [Post: 02505](https://www.binaryworkspace.com/02505.html)
 ## Eclipse RCP Product: [Post: 02510](https://www.binaryworkspace.com/02510.html)
 ## Eclipse RCP Product Build with Maven: [Post: 02515](https://www.binaryworkspace.com/02515.html)
